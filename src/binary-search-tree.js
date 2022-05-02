@@ -14,7 +14,6 @@ class BinarySearchTree {
   root() {
     return this.rootValue
   }
-
   add(data) {
     let newNode = new Node(data);
     const insertNode = (node, newNode)=> {
@@ -55,9 +54,7 @@ class BinarySearchTree {
             return findNode(node.right, findData);
         }
       }
-      
     }
-    
       return findNode(this.rootValue, findData);
  
   }
@@ -97,13 +94,11 @@ class BinarySearchTree {
 
   remove(data) {
     const minNode = (node)=> {
-      // если слева от узла ноль тогда это должен быть минимальный узел
       if (node.left === null)
           return node;
       else
           return minNode(node.left);
     }
-
     const removeNode = (node, data)=> {
       if (node === null) {
           return null;
@@ -131,12 +126,9 @@ class BinarySearchTree {
           return node;
       }
   }
-  
   this.rootValue = removeNode(this.rootValue, data)
   }
-  
 }
-
 module.exports = {
   BinarySearchTree
 };
