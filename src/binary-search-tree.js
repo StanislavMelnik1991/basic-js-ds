@@ -67,20 +67,74 @@ class BinarySearchTree {
     return (tmp === null ? false: true);
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-
   min() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const minNode = (node)=> {
+      if (node === null) {
+        return null
+      }else {
+        if (node.left !== null) {
+          return minNode(node.left)
+        }else { return node.data }
+        
+      }
+    }
+    return minNode(this.rootValue);
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const maxNode = (node)=> {
+      if (node === null) {
+        return null
+      }else {
+        if (node.right !== null) {
+          return maxNode(node.right)
+        }else { return node.data }
+        
+      }
+    }
+    return maxNode(this.rootValue);
   }
+
+  remove(data) {
+    const minNode = (node)=> {
+      // если слева от узла ноль тогда это должен быть минимальный узел
+      if (node.left === null)
+          return node;
+      else
+          return minNode(node.left);
+    }
+
+    const removeNode = (node, data)=> {
+      if (node === null) {
+          return null;
+      } else if (data < node.data) {
+          node.left = removeNode(node.left, data);
+          return node;
+      } else if (data > node.data) {
+          node.right = removeNode(node.right, data);
+          return node;
+      } else {
+          if (node.left === null && node.right === null) {
+              node = null;
+              return node;
+          }
+          if (node.left === null) {
+              node = node.right;
+              return node;
+          } else if(node.right === null) {
+              node = node.left;
+              return node;
+          }
+          let newNode = minNode(node.right);
+          node.data = newNode.data;
+          node.right = removeNode(node.right, newNode.data);
+          return node;
+      }
+  }
+  
+  this.rootValue = removeNode(this.rootValue, data)
+  }
+  
 }
 
 module.exports = {
